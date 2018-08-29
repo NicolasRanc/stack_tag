@@ -18,13 +18,13 @@ def dummy_fun(token):
     
 def final_tag_set(text):
     """"""
-    
+
     #Load models from pickle serialized object
+    filename = "stack_tag_models"
     with open("stack_tag/model/"+filename, 'rb') as save_file:
-    with open("model/"+filename, 'rb') as save_file:
         pickler = pickle.Unpickler(save_file)
-        stacktag_models = pickler.load()
-            
+        stacktag_models = pickler.load()#problem on dummy_fun associated to vecorizer. Look if possible to set-up parameter for not accounting anymore on own function.
+
     tfidf_mono_vectorizer = stacktag_models["tdidf_vectorizer"]
     nmf_mod = stacktag_models["nmf_model"]
     linsvc_mod = stacktag_models["linearsvc_model"]
