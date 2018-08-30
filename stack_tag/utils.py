@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import pickle
+import os
 
 import numpy as np
 import pandas as pd
@@ -21,6 +22,7 @@ def final_tag_set(text):
 
     #Load models from pickle serialized object
     filename = "stack_tag_models"
+    print(os.getcwd())
     with open("stack_tag/model/"+filename, 'rb') as save_file:
         pickler = pickle.Unpickler(save_file)
         stacktag_models = pickler.load()#problem on dummy_fun associated to vecorizer. Look if possible to set-up parameter for not accounting anymore on own function.

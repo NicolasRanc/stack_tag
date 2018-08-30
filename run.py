@@ -14,5 +14,3 @@ if __name__ == "__main__":
 
 #Launch application
 #flask run --host=frssldev01
-
-

@@ -10,17 +10,18 @@ app = Flask(__name__)
 
 from .utils import *
 
-@app.route('/question/<string:quest>',methods=['GET'])
-def get_quest(quest):
+@app.route('/question/',methods=['POST'])
+def get_quest():
     """"""
-    print("Question received: {}".format(quest))
+    input_json = request.data.decode()
+    input = json.loads(input_json)
     
-    predicted_tags = final_tag_set(quest)
+    question = input['question']
+    print("Question received: {}".format(question))
     
-    return jsonify({'Tags' : predicted_tags})
+    predicted_tags = final_tag_set(question)
+    
+    return jsonify({'tags' : predicted_tags})
 
 
-#curl -i http://frssldev01:5000/question/This%20is%20a%20test%20for%20Python%20&lt;strong&gt;Flask%20API&lt;/strong&gt;%20development%20where%20&lt;code&gt;%20toto%20&lt;/code&gt;.
-#curl -i http://frssldev01:5000/question/This%20is%20a%20test%20for%20Python
-
-#curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://localhost:5000/todo/api/v1.0/tasks
+#curl -i -H "Content-Type: application/json" -X POST -d '{"question":"This is a test for Python <strong&>Flask API</strong> development where <code> toto </code>."}' http://frssldev01:5000/question/
