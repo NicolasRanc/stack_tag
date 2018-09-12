@@ -5,14 +5,12 @@ import datetime
 
 app = Flask(__name__)
 
-# Config options - Make sure you 'config.py' file is created.
-#app.config.from_object('config')
-
 from .utils import *
 
 @app.route('/question/',methods=['POST'])
 def get_quest():
-    """"""
+    """Returns json from HTML POST request. Input is json {'question': paragraph to be tagged}
+    """
     input_json = request.data.decode()
     input = json.loads(input_json)
     
@@ -22,6 +20,3 @@ def get_quest():
     predicted_tags = final_tag_set(question)
     
     return jsonify({'tags' : predicted_tags})
-
-
-#curl -i -H "Content-Type: application/json" -X POST -d '{"question":"This is a test for Python <strong&>Flask API</strong> development where <code> toto </code>."}' http://frssldev01:5000/question/

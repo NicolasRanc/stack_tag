@@ -7,17 +7,21 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 from .views import app
 
+
 class Question():
     '''Class Question contains methods tokenize'''
-    
 
     def __init__(self, text):
         self.question = text
         self.token = []
 
     def html_tag_rm(self):
-        """Returns new string without html tag.
+        """Returns new string without corresponding opening and closing html tag.
+        Keeps the information within tags.
+        Agrs:
+            self: the text paragraph
         """
+        
         #create set of html tags
         html_tag_set = set()
         tag_set = set(re.findall(r"</.*?>", self.question))
@@ -37,7 +41,9 @@ class Question():
 
 
     def rm_code(self):
-        """Returns new string without anything within code tag.
+        """Returns new paragraph without anything within html code tag.
+        Args:
+            self: the text paragraph
         """
         tag = "code"
         list_of_tag_forms = [tag.lower(), tag.upper(), tag.capitalize()]
@@ -54,11 +60,10 @@ class Question():
 
 
     def tokenize(self):
-        """Returns tokenized list with stopword removed.
+        """Returns tokenized list with stopword removed and lemmatized words.
+        nltk module is basic for text transformation.
         Args:
-            seq: text sequence (str format)
-            stopword_list: list of stopword to remove from tokenized list
-            token_method: method to tokenized the text e.g.: nltk.RegexpTokenizer(r'\w+')
+            self: the text paragraph
         """
         tokenizer = nltk.RegexpTokenizer(r'[\w\+\-\#\\*]+')
         lmtzr = WordNetLemmatizer()
